@@ -1486,7 +1486,7 @@
     `;
 
     status.innerHTML = bankDetails;
-    sendOrderToLevana('Bank Transfer').catch(err => console.error('Formspree:', err));
+    sendOrderToLevana('Bank Transfer').catch(err => console.error('Envoi commande:', err));
   });
 
   /* ── PAIEMENT BIT ── */
@@ -1501,7 +1501,7 @@
     window.location.href = `https://www.bitpay.co.il/app/me/E4C95166-CF31-065F-88B5-70AFB9E25D8B5C91`;
 
     // Envoi commande + coordonnées livraison à Levana
-    sendOrderToLevana('Bit').catch(err => console.error('Formspree:', err));
+    sendOrderToLevana('Bit').catch(err => console.error('Envoi commande:', err));
 
     // Sécurité : si l'app Bit ne prend pas le relais après 2,5s
     setTimeout(() => {

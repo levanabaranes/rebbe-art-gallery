@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rebbe Art Gallery — Photos du Rabbi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --bg2: #f7f2eb;
+      --card: #ffffff;
+      --gold: #8a5c3e;
+      --sepia: #6b4530;
+      --gold2: #6b4530;
+      --cream: #f7f2eb;
+      --text: #1c1a18;
+      --muted: #9e9690;
+      --border: rgba(139,111,71,0.2);
+      --r: 8px;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.5;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── STARS ── */
+    .stars { display: none; }
+    .stars::before, .stars::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 8% 12%, rgba(138,92,62,0.7) 0, transparent 1px),
+        radial-gradient(1px 1px at 22% 38%, rgba(255,255,255,0.45) 0, transparent 1px),
+        radial-gradient(1.5px 1.5px at 38% 7%, rgba(138,92,62,0.5) 0, transparent 1.5px),
+        radial-gradient(1px 1px at 53% 55%, rgba(255,255,255,0.3) 0, transparent 1px),
+        radial-gradient(1px 1px at 68% 22%, rgba(138,92,62,0.6) 0, transparent 1px),
+        radial-gradient(1.5px 1.5px at 82% 45%, rgba(255,255,255,0.5) 0, transparent 1.5px),
+        radial-gradient(1px 1px at 14% 68%, rgba(138,92,62,0.4) 0, transparent 1px),
+        radial-gradient(1px 1px at 28% 82%, rgba(255,255,255,0.35) 0, transparent 1px),
+        radial-gradient(1px 1px at 57% 72%, rgba(138,92,62,0.55) 0, transparent 1px),
+        radial-gradient(1px 1px at 74% 88%, rgba(255,255,255,0.4) 0, transparent 1px),
+        radial-gradient(1.5px 1.5px at 91% 18%, rgba(138,92,62,0.6) 0, transparent 1.5px),
+        radial-gradient(1px 1px at 44% 92%, rgba(255,255,255,0.3) 0, transparent 1px),
+        radial-gradient(1px 1px at 96% 62%, rgba(138,92,62,0.5) 0, transparent 1px),
+        radial-gradient(1px 1px at 3% 50%, rgba(255,255,255,0.4) 0, transparent 1px);
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+    .stars::after { background-position: 60px 40px; animation-delay: 2s; animation-duration: 5.5s; }
+    @keyframes twinkle { from { opacity: 0.5; } to { opacity: 1; } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(250,248,244,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+    .nav-logo span { color: var(--sepia); font-style: italic; }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .lang-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      padding: 0.35rem 0.8rem;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.25s;
+      font-family: inherit;
+    }
+    .lang-toggle:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-wa-nav {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: #1da851;
+      color: white;
+      text-decoration: none;
+      font-size: 0.77rem;
+      font-weight: 500;
+      padding: 0.5rem 1.1rem;
+      border-radius: 24px;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .btn-wa-nav:hover { opacity: 0.88; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 25%, #f0ead8 0%, #f7f2eb 40%, #faf8f4 100%);
+    }
+    .hero-glow {
+      position: absolute;
+      top: 15%; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(138,92,62,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    h1.hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 2rem;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+    h1.hero-title em { color: var(--gold); font-style: italic; }
+    .hero-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+      color: var(--sepia);
+      max-width: 580px;
+      line-height: 1.75;
+      margin-bottom: 0.6rem;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+    .hero-quote-attr {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.1s forwards;
+    }
+    .btn-primary {
+      padding: 0.9rem 2.4rem;
+      background: var(--gold);
+      color: #1c1a18;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--gold2); border-color: var(--gold2); }
+    .btn-ghost {
+      padding: 0.9rem 2.4rem;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(139,111,71,0.35);
+      border-radius: 2px;
+      transition: all 0.25s;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-ghost:hover { border-color: var(--cream); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── PROMO BANNER ── */
+    .promo-banner {
+      background: linear-gradient(90deg, #ede4d0, #f0e8d8, #ede4d0);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 2rem;
+    }
+    .promo-inner {
+      display: flex; align-items: center; gap: 1rem;
+      flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto;
+    }
+    .promo-badge {
+      background: var(--gold);
+      color: #1c1a18;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .promo-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .promo-cta {
+      color: var(--gold);
+      font-size: 0.8rem;
+      text-decoration: underline;
+      cursor: pointer;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1160px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      text-align: center;
+      margin-bottom: 0.9rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      text-align: center;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+    .section-title em { color: var(--gold); font-style: italic; }
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.75;
+      max-width: 500px;
+      margin: 0 auto 3.5rem;
+    }
+    .gold-line { width: 36px; height: 1px; background: var(--gold); margin: 1.2rem auto 2rem; }
+
+    /* ── GALLERY ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--r);
+      cursor: pointer;
+      background: var(--card);
+      border: 1px solid var(--border);
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s;
+    }
+    .photo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(138,92,62,0.13); }
+    .photo-card.featured { grid-column: span 2; }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .photo-card:hover .card-img { transform: scale(1.04); }
+    .photo-card.featured .card-img { aspect-ratio: 16/9; }
+
+    /* Portrait placeholders — replace src="" with real photos */
+    .ph-1 { background: radial-gradient(ellipse at 45% 32%, #edd4a0 0%, #c49060 18%, #7a4820 42%, #341508 68%, #0e0704 100%); }
+    .ph-2 { background: radial-gradient(ellipse at 50% 30%, #e0d0a0 0%, #b89058 24%, #6a3e1e 48%, #2c1608 72%, #0a0602 100%); }
+    .ph-3 { background: radial-gradient(ellipse at 42% 36%, #e8d8b8 0%, #c8986a 18%, #7a4e2e 40%, #3c1e0e 65%, #110804 100%); }
+    .ph-4 { background: radial-gradient(ellipse at 48% 34%, #e4c898 0%, #b88050 22%, #6a3818 46%, #301408 70%, #0c0602 100%); }
+    .ph-5 { background: radial-gradient(ellipse at 44% 34%, #ead8b2 0%, #ca9860 20%, #7c4820 42%, #3a1a0a 66%, #100705 100%); }
+    .ph-6 { background: radial-gradient(ellipse at 46% 32%, #e2cca2 0%, #be8c58 22%, #724228 46%, #321808 68%, #0e0704 100%); }
+    .ph-7 { background: radial-gradient(ellipse at 50% 30%, #ddc898 0%, #b07840 22%, #623010 46%, #2a1006 68%, #0c0602 100%); }
+    .ph-8 { background: radial-gradient(ellipse at 44% 34%, #e6d0a8 0%, #c08850 20%, #704020 42%, #301808 66%, #0e0704 100%); }
+    .ph-9 { background: radial-gradient(ellipse at 48% 32%, #e8d4b0 0%, #c49060 18%, #785030 40%, #382010 65%, #100806 100%); }
+    .ph-10 { background: radial-gradient(ellipse at 42% 36%, #dccaa0 0%, #b48048 22%, #643818 46%, #2c1408 70%, #0a0602 100%); }
+    .ph-11 { background: radial-gradient(ellipse at 46% 30%, #e4d0a6 0%, #be8a56 20%, #6e4026 44%, #301808 68%, #0e0704 100%); }
+    .ph-12 { background: radial-gradient(ellipse at 50% 34%, #e0cca0 0%, #b88450 22%, #684020 46%, #2e1608 70%, #0c0602 100%); }
+
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(250,248,244,0.96) 0%, rgba(250,248,244,0.3) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.25rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .photo-card:hover .card-overlay { opacity: 1; }
+    .overlay-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+    .btn-configure {
+      display: inline-block;
+      padding: 0.55rem 1.25rem;
+      background: var(--gold);
+      color: #1c1a18;
+      font-size: 0.73rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    .btn-configure:hover { background: var(--gold2); }
+    .card-footer {
+      padding: 0.85rem 1.1rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .card-from { font-size: 0.73rem; color: var(--gold); }
+
+    /* ── ROOM PREVIEW ── */
+    .room-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .room-scroll {
+      display: flex; gap: 1.25rem;
+      overflow-x: auto; padding-bottom: 0.5rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .room-scroll::-webkit-scrollbar { height: 3px; }
+    .room-scroll::-webkit-scrollbar-track { background: var(--bg2); }
+    .room-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+    .room-card {
+      flex: 0 0 calc(33.333% - 0.85rem);
+      min-width: 260px;
+      border-radius: var(--r);
+      overflow: hidden;
+      position: relative;
+      scroll-snap-align: start;
+      aspect-ratio: 4/3;
+    }
+    .room-scene {
+      width: 100%; height: 100%; position: relative;
+    }
+    .room-wall { position: absolute; inset: 0 0 32% 0; }
+    .room-floor { position: absolute; bottom: 0; left: 0; right: 0; height: 32%; }
+    .room-frame {
+      position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
+      border: 4px solid rgba(255,255,255,0.9);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+    }
+    .room-label {
+      position: absolute; bottom: 0.85rem; left: 0.85rem;
+      background: rgba(250,248,244,0.92);
+      color: var(--gold);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.65rem;
+      border-radius: 2px;
+    }
+
+    /* ── STEPS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: rgba(138,92,62,0.2);
+      line-height: 1;
+      margin-bottom: 0.9rem;
+    }
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.7rem;
+    }
+    .step-text { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── ABOUT ── */
+    .about-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .about-title em { color: var(--gold); font-style: italic; }
+    .about-text {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.8;
+      margin-bottom: 0.9rem;
+    }
+    .highlights { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.5rem; }
+    .hl {
+      display: flex; gap: 0.9rem; align-items: flex-start;
+      padding: 1rem 1.1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--r) var(--r) 0;
+    }
+    html[dir="rtl"] .hl { border-left: 1px solid var(--border); border-right: 3px solid var(--gold); border-radius: var(--r) 0 0 var(--r); }
+    .hl-icon { font-size: 1.1rem; line-height: 1.4; flex-shrink: 0; }
+    .hl-title { font-size: 0.83rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+    .hl-text { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .footer-logo em { font-style: italic; color: var(--text); }
+    .footer-contacts { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .footer-link { color: var(--muted); font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
+    .footer-link:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+
+    /* ── RTL FIX : numéros de téléphone et formats toujours LTR ── */
+    .tel-link {
+      direction: ltr !important;
+      unicode-bidi: isolate;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #size-sel {
+      direction: ltr !important;
+    }
+
+    /* ── MODAL ── */
+    .modal-back {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-back.open { display: flex; }
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 0.9rem; right: 1rem;
+      background: none; border: none;
+      color: var(--muted); font-size: 1.4rem; cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+    html[dir="rtl"] .modal-close { right: auto; left: 1rem; }
+    .modal-close:hover { color: var(--text); }
+    .modal-sublabel {
+      font-size: 0.67rem; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .modal-photo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 0;
+    }
+    .modal-sep { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+    .mat-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.25rem; }
+    .mat-tab {
+      padding: 0.7rem 0.4rem;
+      text-align: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mat-tab:hover { border-color: var(--gold); }
+    .mat-tab.active { border-color: var(--gold); background: rgba(138,92,62,0.1); }
+    .mat-icon { font-size: 1.1rem; display: block; margin-bottom: 0.2rem; }
+    .mat-name { font-size: 0.8rem; font-weight: 500; color: var(--text); }
+    .mat-sub { font-size: 0.67rem; color: var(--muted); margin-top: 0.15rem; }
+
+    .form-label {
+      font-size: 0.67rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      display: block; margin-bottom: 0.45rem;
+    }
+    .form-sel {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+      appearance: none;
+      cursor: pointer;
+      margin-bottom: 1.25rem;
+      font-family: inherit;
+    }
+    .form-sel:focus { outline: none; border-color: var(--gold); }
+
+    .price-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .price-main { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--gold); }
+    .price-shipping { font-size: 0.78rem; color: var(--muted); }
+    .price-note { font-size: 0.75rem; color: var(--muted); }
+
+    .order-btns { display: flex; flex-direction: column; gap: 0.65rem; }
+    .btn-wa-order {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.95rem;
+      background: #1da851;
+      color: white;
+      text-decoration: none;
+      font-size: 0.83rem;
+      font-weight: 500;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-family: inherit;
+    }
+    .btn-wa-order:hover { opacity: 0.88; }
+    .btn-bank {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.8rem;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    .btn-bank:hover { border-color: var(--gold); }
+    .bank-info {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+    .bank-info strong { color: var(--gold); }
+
+    /* ── FLOATING WA ── */
+    .wa-float {
+      position: fixed; bottom: 1.75rem; right: 1.75rem;
+      width: 54px; height: 54px;
+      background: #1da851;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 18px rgba(29,168,81,0.45);
+      text-decoration: none;
+      z-index: 90;
+      transition: transform 0.2s;
+    }
+    html[dir="rtl"] .wa-float { right: auto; left: 1.75rem; }
+    .wa-float:hover { transform: scale(1.1); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0.9rem 1.25rem; }
+      .nav-logo { font-size: 1rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card.featured { grid-column: span 2; }
+      .steps { grid-template-columns: 1fr; }
+      .about-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .room-card { flex: 0 0 82%; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .photo-card.featured { grid-column: span 1; }
+    }
+
+    /* ── CADEAU ── */
+    .cadeau-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .cadeau-card {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 3rem 3.5rem;
+      text-align: center;
+    }
+    .cadeau-icon { font-size: 2.2rem; margin-bottom: 1.5rem; display: block; }
+    .cadeau-body { color: var(--muted); font-size: 0.93rem; line-height: 1.85; margin-bottom: 1rem; }
+    .cadeau-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin: 1.75rem 0 2rem; }
+    .cadeau-tag { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); border-radius: 20px; padding: 0.3rem 0.9rem; }
+
+    /* ── INSTITUTIONS ── */
+    .instit-section { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .instit-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 3rem; align-items: start; }
+    .instit-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--gold); border-radius: var(--r); padding: 2.25rem 2rem; }
+    .instit-lang-badge { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 1rem; }
+    .instit-icon { font-size: 1.8rem; margin-bottom: 0.9rem; display: block; }
+    .instit-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text); line-height: 1.35; margin-bottom: 1rem; }
+    .instit-title em { color: var(--gold); font-style: italic; }
+    .instit-body { color: var(--muted); font-size: 0.87rem; line-height: 1.85; margin-bottom: 1.25rem; }
+    .discount-strip { display: flex; align-items: center; gap: 0.8rem; background: linear-gradient(135deg, #f7f0e4, #f0e8d4); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 0.65rem 1rem; margin-bottom: 1.5rem; }
+    html[dir="rtl"] .discount-strip { border-left: 1px solid var(--border); border-right: 3px solid var(--gold); border-radius: 6px 0 0 6px; }
+    .discount-pct { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); line-height: 1; flex-shrink: 0; }
+    .discount-label { font-size: 0.8rem; color: var(--text); line-height: 1.4; }
+    @media (max-width: 768px) {
+      .instit-wrap { grid-template-columns: 1fr; }
+      .cadeau-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/972586770356?text=Bonjour+Mordechai+%21+Je+suis+int%C3%A9ress%C3%A9(e)+par+une+photo+du+Rabbi.+Pouvez-vous+m%27aider+%3F"
+   class="wa-float" target="_blank" rel="noopener" title="Contactez un conseiller">💬</a>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Rebbe <span>Art Gallery</span></a>
+  <div class="nav-right">
+    <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">עברית</button>
+    <a href="https://wa.me/972586770356?text=Bonjour+Mordechai+%21+J%27ai+une+question+sur+la+qualit%C3%A9+et+les+garanties."
+       class="btn-wa-nav" target="_blank" rel="noopener">
+      <span>💬</span>
+      <span class="t" data-fr="Service Client" data-he="שירות לקוחות">Service Client</span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="stars"></div>
+  <div class="hero-glow"></div>
+  <p class="hero-eyebrow t"
+     data-fr="Rebbe Art Gallery · Mordechai Levy · Shaliach Francophone · Rishon LeZion"
+     data-he="רבי ארט גלרי · מרדכי לוי · שליח דוברי-צרפתית · ראשון לציון">
+    Rebbe Art Gallery · Mordechai Levy · Shaliach Francophone · Rishon LeZion
+  </p>
+  <h1 class="hero-title">
+    <span class="t" data-fr="L'âme de votre foyer :" data-he="הנשמה של הבית:">L'âme de votre foyer :</span><br>
+    <em class="t" data-fr="le regard du Rabbi" data-he="מבטו של הרבי">le regard du Rabbi</em>
+  </h1>
+  <p class="hero-quote t"
+     data-fr="Illuminez votre demeure, élevez votre âme : l'excellence de l'art au service de la Kedoucha."
+     data-he="האירו את ביתכם, הכניסו קדושה. אמנות של ברכה.">
+    Illuminez votre demeure, élevez votre âme : l'excellence de l'art au service de la Kedoucha.
+  </p>
+  <div class="hero-ctas">
+    <a href="#gallery" class="btn-primary t" data-fr="Voir la collection" data-he="לצפות באוסף">Voir la collection</a>
+    <a href="https://wa.me/972586770356?text=Bonjour+Mordechai+%21+Je+souhaite+commander+une+photo+du+Rabbi."
+       class="btn-ghost" target="_blank" rel="noopener">
+      <span class="t" data-fr="Commander sur WhatsApp" data-he="הזמנה בוואטסאפ">Commander sur WhatsApp</span>
+    </a>
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<div class="promo-banner">
+  <div class="promo-inner">
+    <span class="promo-badge t" data-fr="📸 Photo de la semaine" data-he="📸 תמונת השבוע">📸 Photo de la semaine</span>
+    <span class="promo-text" id="promo-photo-text">✨ Cette semaine : « Yud Shvat — Hiskashrus »</span>
+    <button class="promo-cta t" data-fr="Passer commande →" data-he="← לביצוע הזמנה"
+            onclick="openModal('Yud Shvat — Hiskashrus', 'RB-001')">Passer commande →</button>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <span class="section-label t" data-fr="La Collection" data-he="האוסף">La Collection</span>
+    <h2 class="section-title">
+      <em class="t" 
+            data-fr="Plus qu'un portrait : la présence du Rabbi dans votre foyer" 
+            data-he="יותר מדיוקן: נוכחות הרבי בביתכם">
+        Plus qu'un portrait : la présence du Rabbi dans votre foyer
+      </em>
+    </h2>
+    <div class="gold-line"></div>
+    <p class="section-sub t"
+       data-fr="Des œuvres conçues avec les plus grandes exigences d'édition, alliant précision et finition raffinée pour sublimer votre intérieur."
+       data-he="יצירות המופקות בסטנדרטים הגבוהים ביותר, בשילוב דיוק וגימור יוקרתי לשדרוג חלל הבית.">
+      Des œuvres conçues avec les plus grandes exigences d'édition, alliant précision et finition raffinée pour sublimer votre intérieur.
+    </p>
+
+    <div class="gallery-grid">
+
+      <!-- FEATURED -->
+      <div class="photo-card featured" onclick="openModal('Yud Shvat — Hiskashrus', 'RB-001')">
+        <!-- REMPLACER src par la vraie URL de photo | REPLACE src with real photo URL -->
+        <div class="card-img ph-1" style="height:300px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Yud Shvat — Hiskashrus" data-he="יו״ד שבט — התקשרות">Yud Shvat — Hiskashrus</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Yud Shvat — Hiskashrus" data-he="יו״ד שבט — התקשרות">Yud Shvat — Hiskashrus</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="photo-card" onclick="openModal('Le Regard du Rabbi', 'RB-002')">
+        <div class="card-img ph-2" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Le Regard du Rabbi" data-he="מבטו של הרבי">Le Regard du Rabbi</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Le Regard du Rabbi" data-he="מבטו של הרבי">Le Regard du Rabbi</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="photo-card" onclick="openModal('770 — Beit Chayenou', 'RB-003')">
+        <div class="card-img ph-3" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="770 — Beit Chayenou" data-he="770 — בית חיינו">770 — Beit Chayenou</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="770 — Beit Chayenou" data-he="770 — בית חיינו">770 — Beit Chayenou</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="photo-card" onclick="openModal('La Marche vers la Geoula', 'RB-004')">
+        <div class="card-img ph-4" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="La Marche vers la Geoula" data-he="הצעדה לגאולה">La Marche vers la Geoula</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="La Marche vers la Geoula" data-he="הצעדה לגאולה">La Marche vers la Geoula</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="photo-card" onclick="openModal('Yechidut', 'RB-005')">
+        <div class="card-img ph-5" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Yechidut" data-he="יחידות">Yechidut</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Yechidut" data-he="יחידות">Yechidut</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="photo-card" onclick="openModal('Nigoun du Rabbi', 'RB-006')">
+        <div class="card-img ph-6" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Nigoun du Rabbi" data-he="ניגון הרבי">Nigoun du Rabbi</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Nigoun du Rabbi" data-he="ניגון הרבי">Nigoun du Rabbi</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 7 — featured -->
+      <div class="photo-card featured" onclick="openModal('La Farbrengen', 'RB-007')">
+        <div class="card-img ph-7" style="height:300px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="La Farbrengen" data-he="הפארברענגען">La Farbrengen</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="La Farbrengen" data-he="הפארברענגען">La Farbrengen</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 8 -->
+      <div class="photo-card" onclick="openModal('Ohel — Demande et Prière', 'RB-008')">
+        <div class="card-img ph-8" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Ohel — Demande et Prière" data-he="אוהל — בקשה ותפילה">Ohel — Demande et Prière</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Ohel — Demande et Prière" data-he="אוהל — בקשה ותפילה">Ohel — Demande et Prière</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 9 -->
+      <div class="photo-card" onclick="openModal('Simchat Torah', 'RB-009')">
+        <div class="card-img ph-9" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Simchat Torah" data-he="שמחת תורה">Simchat Torah</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Simchat Torah" data-he="שמחת תורה">Simchat Torah</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 10 -->
+      <div class="photo-card" onclick="openModal('Le Sourire de Kedoucha', 'RB-010')">
+        <div class="card-img ph-10" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Le Sourire de Kedoucha" data-he="חיוך הקדושה">Le Sourire de Kedoucha</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Le Sourire de Kedoucha" data-he="חיוך הקדושה">Le Sourire de Kedoucha</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 11 -->
+      <div class="photo-card" onclick="openModal('Rabbi — Portrait de Lumière', 'RB-011')">
+        <div class="card-img ph-11" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Rabbi — Portrait de Lumière" data-he="רבי — דיוקן של אור">Rabbi — Portrait de Lumière</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Rabbi — Portrait de Lumière" data-he="רבי — דיוקן של אור">Rabbi — Portrait de Lumière</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+      <!-- CARD 12 -->
+      <div class="photo-card" onclick="openModal('Dvar Malkhout', 'RB-012')">
+        <div class="card-img ph-12" style="height:200px;"></div>
+        <div class="card-overlay">
+          <div class="overlay-title t" data-fr="Dvar Malkhout" data-he="דבר מלכות">Dvar Malkhout</div>
+          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
+        </div>
+        <div class="card-footer">
+          <div class="card-name t" data-fr="Dvar Malkhout" data-he="דבר מלכות">Dvar Malkhout</div>
+          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Custom order -->
+    <div style="text-align:center; margin-top:4rem; padding: 2.5rem 2rem; border: 1px solid var(--border); border-radius: var(--r); background: rgba(138,92,62,0.03);">
+      <p style="color:var(--muted); font-size:0.95rem; margin-bottom:1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;" class="t"
+         data-fr="Vous recherchez un portrait spécifique, un autre Tsaddik ou un format monumental ? Nous réalisons vos projets d'édition sur-mesure pour s'adapter parfaitement à votre intérieur."
+         data-he="מחפשים דיוקן ספציפי, צדיק אחר או פורמט ענק? אנו מבצעים פרויקטים של הדפסה בהתאמה אישית כדי להתאים בצורה מושלמת לעיצוב הבית שלכם.">
+        Vous recherchez un portrait spécifique, un autre Tsaddik ou un format monumental ? Nous réalisons vos projets d'édition sur-mesure pour s'adapter parfaitement à votre intérieur.
+      </p>
+      <a href="https://wa.me/972586770356?text=Bonjour%2C+je+souhaiterais+discuter+d%27un+projet+de+commande+personnalis%C3%A9e+pour+un+format+ou+un+mod%C3%A8le+sp%C3%A9cifique."
+         class="btn-primary" target="_blank" rel="noopener" style="display:inline-block;">
+        <span class="t" data-fr="Demande d'édition sur-mesure" data-he="בקשה להדפסה בהתאמה אישית">Demande d'édition sur-mesure</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CADEAU -->
+<section class="cadeau-section" id="cadeau">
+  <div class="container">
+    <span class="section-label t" data-fr="Idée Cadeau" data-he="רעיון למתנה">Idée Cadeau</span>
+    <h2 class="section-title">
+      <em class="t"
+          data-fr="Offrez plus qu'un objet, offrez une Lumière"
+          data-he="העניקו יותר ממתנה – העניקו אור">
+        Offrez plus qu'un objet, offrez une Lumière
+      </em>
+    </h2>
+    <div class="gold-line"></div>
+    <div class="cadeau-card">
+      <span class="cadeau-icon">🎁</span>
+      <p class="cadeau-body t"
+         data-fr="Vous cherchez un cadeau qui marque vraiment les esprits et les cœurs ? Que ce soit pour un mariage, une Hanoukkat Baït ou une Bar/Bat Mitsva, un tableau du Rabbi est une évidence. C'est un cadeau porteur de sens qui apporte bénédiction, protection et une présence unique dans chaque foyer."
+         data-he="מחפשים מתנה עם משמעות עמוקה שתישאר לעד? בין אם מדובר בחתונה, חנוכת בית או בר/בת מצווה, תמונת הרבי היא הבחירה הטבעית. זוהי מתנה המביאה איתה ברכה, שמירה ונוכחות ייחודית לכל בית.">
+        Vous cherchez un cadeau qui marque vraiment les esprits et les cœurs ? Que ce soit pour un mariage, une Hanoukkat Baït ou une Bar/Bat Mitsva, un tableau du Rabbi est une évidence. C'est un cadeau porteur de sens qui apporte bénédiction, protection et une présence unique dans chaque foyer.
+      </p>
+      <p class="cadeau-body t"
+         data-fr="Choisissez un cadeau qui se ressent au quotidien : une lumière qui accompagne toute la famille pour les années à venir."
+         data-he="בחרו במתנה שמרגישים בכל יום מחדש: אור שמלווה את כל המשפחה לאורך שנים.">
+        Choisissez un cadeau qui se ressent au quotidien : une lumière qui accompagne toute la famille pour les années à venir.
+      </p>
+      <div class="cadeau-tags">
+        <span class="cadeau-tag t" data-fr="🤍 Mariage" data-he="🤍 חתונה">🤍 Mariage</span>
+        <span class="cadeau-tag t" data-fr="🏡 Hanoukkat Baït" data-he="🏡 חנוכת בית">🏡 Hanoukkat Baït</span>
+        <span class="cadeau-tag t" data-fr="✨ Bar Mitsva" data-he="✨ בר מצווה">✨ Bar Mitsva</span>
+        <span class="cadeau-tag t" data-fr="✨ Bat Mitsva" data-he="✨ בת מצווה">✨ Bat Mitsva</span>
+      </div>
+      <a href="#gallery"
+         class="btn-primary t"
+         data-fr="Choisir un tableau →"
+         data-he="← בחרו תמונה">
+        Choisir un tableau →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONS -->
+<section class="instit-section" id="institutions">
+  <div class="container">
+    <span class="section-label t" data-fr="Offre Institutionnelle" data-he="הצעה למוסדות">Offre Institutionnelle</span>
+    <h2 class="section-title">
+      <em class="t"
+          data-fr="Inspirer l'éducation par la présence des Rebbeim"
+          data-he="להשראה וחינוך: דמויות הרביים במוסדות התורה">
+        Inspirer l'éducation par la présence des Rebbeim
+      </em>
+    </h2>
+    <div class="gold-line"></div>
+    <p class="section-sub t"
+       data-fr="Apportez la lumière et l'inspiration des Rebbeim dans vos lieux d'étude et d'enseignement."
+       data-he="הכניסו את אורם והשראתם של רבותינו נשיאינו אל כותלי מוסדות החינוך והלימוד.">
+      Apportez la lumière et l'inspiration des Rebbeim dans vos lieux d'étude et d'enseignement.
+    </p>
+    <div class="instit-card" style="max-width:780px; margin:0 auto; text-align:center;">
+      <span class="instit-icon">🏫</span>
+      <div class="discount-strip" style="max-width:420px; margin:0 auto 1.5rem;">
+        <span class="discount-pct">−10%</span>
+        <span class="discount-label t"
+              data-fr="<strong>Offre Institutionnelle</strong><br>Écoles · Ganim · Yeshivot · Kollelim"
+              data-he="<strong>הטבה למוסדות</strong><br>בתי ספר · גנים · ישיבות · כוללים">
+          <strong>Offre Institutionnelle</strong><br>Écoles · Ganim · Yeshivot · Kollelim
+        </span>
+      </div>
+      <p class="instit-body t"
+         data-fr="Nos tableaux de haute qualité sont conçus pour accompagner le quotidien des élèves et des étudiants, créant une atmosphère de sainteté propice à l'apprentissage. Nous proposons des conditions exceptionnelles et une réduction de 10% pour les écoles, Ganim, Yeshivot et Kollelim. Contactez-nous pour une commande groupée ou un format sur-mesure."
+         data-he="התמונות האיכותיות שלנו נועדו ללוות את סדר יומם של התלמידים וליצור אווירה של קדושה המעוררת את הלב ללימוד. אנו מציעים תנאים מיוחדים ו-10% הנחה לבתי ספר, גנים, ישיבות וכוללים. צרו קשר להזמנות מרוכזות או לפורמטים בהתאמה אישית.">
+        Nos tableaux de haute qualité sont conçus pour accompagner le quotidien des élèves et des étudiants, créant une atmosphère de sainteté propice à l'apprentissage. Nous proposons des conditions exceptionnelles et une réduction de 10% pour les écoles, Ganim, Yeshivot et Kollelim. Contactez-nous pour une commande groupée ou un format sur-mesure.
+      </p>
+      <a href="https://wa.me/972586770356?text=Bonjour+Mordechai+%21+Je+représente+un+établissement+et+je+souhaite+une+commande+groupée."
+         class="btn-primary t"
+         data-fr="Contactez-nous pour une commande groupée →"
+         data-he="← צרו קשר להזמנות מרוכזות"
+         target="_blank" rel="noopener" style="font-size:0.78rem; display:inline-block;">
+        Contactez-nous pour une commande groupée →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ROOM PREVIEW -->
+<section class="room-section">
+  <div class="container">
+    <span class="section-label t" data-fr="Aperçu chez vous" data-he="תצוגה מקדימה בביתכם">Aperçu chez vous</span>
+    <h2 class="section-title t"
+        data-fr="La photo dans votre intérieur"
+        data-he="התמונה בביתכם">La photo dans votre intérieur</h2>
+    <div class="gold-line"></div>
+
+    <div class="room-scroll">
+      <!-- Salon -->
+      <div class="room-card">
+        <div class="room-scene" style="background:#c8bcaa;">
+          <div class="room-wall" style="background:#ede0cc;"></div>
+          <div class="room-floor" style="background:linear-gradient(90deg,#8a7060,#a08070,#8a7060);"></div>
+          <div class="room-frame ph-1" style="width:32%;aspect-ratio:3/4;top:10%;"></div>
+        </div>
+        <div class="room-label t" data-fr="Salon" data-he="סלון">Salon</div>
+      </div>
+      <!-- Bureau -->
+      <div class="room-card">
+        <div class="room-scene" style="background:#c0c8d0;">
+          <div class="room-wall" style="background:#dce8f0;"></div>
+          <div class="room-floor" style="background:linear-gradient(90deg,#404858,#606878,#404858);"></div>
+          <div class="room-frame ph-3" style="width:50%;aspect-ratio:16/9;top:14%;"></div>
+        </div>
+        <div class="room-label t" data-fr="Bureau" data-he="חדר עבודה">Bureau</div>
+      </div>
+      <!-- Prière -->
+      <div class="room-card">
+        <div class="room-scene" style="background:#d4c8b0;">
+          <div class="room-wall" style="background:#f0e8d8;"></div>
+          <div class="room-floor" style="background:linear-gradient(90deg,#584838,#786858,#584838);"></div>
+          <div class="room-frame ph-5" style="width:38%;aspect-ratio:2/3;top:8%;"></div>
+        </div>
+        <div class="room-label t" data-fr="Espace de prière" data-he="פינת תפילה">Espace de prière</div>
+      </div>
+      <!-- Entrée -->
+      <div class="room-card">
+        <div class="room-scene" style="background:#c8d0c0;">
+          <div class="room-wall" style="background:#e4ecdc;"></div>
+          <div class="room-floor" style="background:linear-gradient(90deg,#505840,#687060,#505840);"></div>
+          <div class="room-frame ph-2" style="width:44%;aspect-ratio:4/3;top:12%;"></div>
+        </div>
+        <div class="room-label t" data-fr="Entrée" data-he="כניסה">Entrée</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <span class="section-label t" data-fr="Comment commander" data-he="איך להזמין">Comment commander</span>
+    <h2 class="section-title t" data-fr="Votre commande en trois étapes" data-he="ההזמנה שלכם בשלושה שלבים">Votre commande en trois étapes</h2>
+    <div class="gold-line"></div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title t" data-fr="Configurez" data-he="הגדירו">Configurez</div>
+        <p class="step-text t"
+           data-fr="Choisissez votre œuvre, son support et son format directement sur le configurateur."
+           data-he="בחרו את היצירה, את חומר ההדפסה ואת הפורמט ישירות במערכת.">
+          Choisissez votre œuvre, son support et son format directement sur le configurateur.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title t" data-fr="Réglez" data-he="שלמו">Réglez</div>
+        <p class="step-text t"
+           data-fr="Effectuez votre paiement via Bit ou Virement bancaire en suivant les instructions affichées."
+           data-he="בצעו את התשלום באמצעות ביט או העברה בנקאית לפי ההנחיות המופיעות.">
+          Effectuez votre paiement via Bit ou Virement bancaire en suivant les instructions affichées.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title t" data-fr="Expédition" data-he="משלוח">Expédition</div>
+        <p class="step-text t"
+           data-fr="Dès réception du justificatif, votre œuvre est mise en production et expédiée sous 2 à 5 jours ouvrés."
+           data-he="עם קבלת אישור התשלום, היצירה שלכם עוברת להדפסה ונשלחת תוך 2 עד 5 ימי עסקים.">
+          Dès réception du justificatif, votre œuvre est mise en production et expédiée.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ABOUT -->
+<section style="background: var(--bg2); border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="about-wrap">
+      <div>
+        <span class="section-label" style="text-align:left;" data-fr="Notre Mission" data-he="החזון שלנו">Notre Mission</span>
+        <h2 class="about-title">
+          <span class="t" data-fr="L'Excellence au service" data-he="מצוינות בשירות">L'Excellence au service</span><br>
+          <em class="t" data-fr="du Maitre de Notre Génération" data-he="של הזיכרון">du Maitre de Notre Génération</em>
+        </h2>
+        <p class="about-text t"
+           data-fr="Sous la direction de Mordechai Levy, la Rebbe Art Gallery s'est donné pour mission de sublimer les foyers de la communauté francophone en Israël. Plus qu'une simple impression, chaque œuvre est une fenêtre ouverte sur la sainteté, traitée avec le respect et la dignité que mérite l'image du Rabbi."
+           data-he="בהנהלת מרדכי לוי, Rebbe Art Gallery חרטה על דגלה להעניק השראה לבתים בקהילה דוברי הצרפתית בישראל. יותר מסתם הדפסה, כל יצירה היא חלון לקדושה, המטופלת בכבוד הראוי לדמותו של הרבי.">
+          Sous la direction de Mordechai Levy, la Rebbe Art Gallery s'est donné pour mission de sublimer les foyers de la communauté francophone en Israël. Plus qu'une simple impression, chaque œuvre est une fenêtre ouverte sur la sainteté, traitée avec le respect et la dignité que mérite l'image du Rabbi.
+        </p>
+        <p class="about-text t"
+           data-fr="Notre engagement repose sur une sélection rigoureuse des clichés et l'utilisation de matériaux nobles (Plexiglas Premium, Verre poli, Toile de galerie), garantissant une longévité exceptionnelle à vos tableaux."
+           data-he="המחויבות שלנו מבוססת על בחירה קפדנית של התמונות ושימוש בחומרים איכותיים (פלקסיגלס פרמיום, זכוכית מלוטשת, קנבס גלריה), המבטיחים עמידות יוצאת דופן ליצירות שלכם.">
+          Notre engagement repose sur une sélection rigoureuse des clichés et l'utilisation de matériaux nobles (Plexiglas Premium, Verre poli, Toile de galerie), garantissant une longévité exceptionnelle à vos tableaux.
+        </p>
+        <div style="margin-top:1.5rem;">
+          <a href="tel:+972586770356" class="btn-ghost tel-link" style="display:inline-flex; margin-right:0.75rem;">
+            <span>+972 58 677 0356</span>
+          </a>
+        </div>
+      </div>
+      <div class="highlights">
+        <div class="hl">
+          <span class="hl-icon">💎</span>
+          <div>
+            <div class="hl-title t" data-fr="Finition Haute Définition" data-he="גימור ברזולוציה גבוהה">Finition Haute Définition</div>
+            <p class="hl-text t"
+               data-fr="Procédé d'impression thermique assurant une clarté absolue et des contrastes profonds, fidèle aux archives originales."
+               data-he="תהליך הדפסה תרמי המבטיח בהירות מוחלטת וניגודיות עמוקה, נאמן לארכיון המקורי.">
+              Procédé d'impression thermique assurant une clarté absolue et des contrastes profonds.
+            </p>
+          </div>
+        </div>
+        <div class="hl">
+          <span class="hl-icon">✨</span>
+          <div>
+            <div class="hl-title t" data-fr="Supports de Prestige" data-he="חומרי יוקרה">Supports de Prestige</div>
+            <p class="hl-text t"
+               data-fr="Spécialiste du Plexiglas Crystal (4mm) pour un effet de profondeur unique et une protection anti-UV intégrée."
+               data-he="מומחים בפלקסיגלס קריסטל (4 מ״מ) לאפקט עומק ייחודי והגנת UV מובנית.">
+              Spécialiste du Plexiglas Crystal (4mm) pour un effet de profondeur unique.
+            </p>
+          </div>
+        </div>
+        <div class="hl">
+          <span class="hl-icon">📜</span>
+          <div>
+            <div class="hl-title t" data-fr="Accompagnement Personnalisé" data-he="ליווי אישי">Accompagnement Personnalisé</div>
+            <p class="hl-text t"
+               data-fr="Besoin d'un format sur-mesure ou d'un conseil en décoration intérieure ? Notre équipe est à votre disposition."
+               data-he="זקוקים לפורמט בהתאמה אישית או לייעוץ בעיצוב פנים? הצוות שלנו עומד לרשותכם.">
+              Besoin d'un format sur-mesure ou d'un conseil ? Notre équipe est à votre disposition.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rebbe <em>Art Gallery</em></div>
+  <div class="footer-contacts">
+    <a href="tel:+972586770356" class="footer-link tel-link">+972 58 677 0356</a>
+    <a href="https://wa.me/972586770356" class="footer-link" target="_blank" rel="noopener">WhatsApp</a>
+    <span class="footer-link"><span class="t" data-fr="Rishon LeZion, Israël" data-he="ראשון לציון, ישראל">Rishon LeZion, Israël</span></span>
+  </div>
+  <div class="footer-copy t"
+       data-fr="© 2026 Rebbe Art Gallery · Mordechai Levy · Shaliach Francophone"
+       data-he="© 2026 רבי ארט גלרי · מרדכי לוי · שליח דוברי-צרפתית">
+    © 2026 Rebbe Art Gallery · Mordechai Levy · Shaliach Francophone
+  </div>
+</footer>
+
+<!-- ── CONFIGURATOR MODAL ── -->
+<div class="modal-back" id="modal" onclick="handleBackdrop(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+
+    <div class="modal-sublabel t" data-fr="Passer commande" data-he="ביצוע הזמנה">Passer commande</div>
+    <div class="modal-photo-name" id="modal-title">Photo du Rabbi</div>
+    <div class="modal-sep"></div>
+
+    <!-- Material -->
+    <label class="form-label t" data-fr="Matière d'impression" data-he="חומר הדפסה">Matière d'impression</label>
+    <div class="mat-tabs">
+      <div class="mat-tab active" id="tab-canvas" onclick="selectMat('canvas')">
+        <div class="mat-name t" data-fr="Toile" data-he="קנבס">Toile</div>
+        <div class="mat-sub t" data-fr="Canva" data-he="קנבס">Canva</div>
+      </div>
+      <div class="mat-tab" id="tab-glass" onclick="selectMat('glass')">
+        <div class="mat-name t" data-fr="Verre" data-he="זכוכית">Verre</div>
+        <div class="mat-sub t" data-fr="Brillant" data-he="מבריק">Brillant</div>
+      </div>
+      <div class="mat-tab" id="tab-plexi" onclick="selectMat('plexi')">
+        <div class="mat-name t" data-fr="Plexiglas" data-he="פלקסיגלס">Plexiglas</div>
+        <div class="mat-sub t" data-fr="Premium" data-he="פרמיום">Premium</div>
+      </div>
+    </div>
+
+    <!-- Size -->
+    <label class="form-label t" data-fr="Format (cm)" data-he="פורמט (ס״מ)">Format (cm)</label>
+    <select class="form-sel" id="size-sel" onchange="updatePrice()"></select>
+
+    <!-- Price -->
+    <div class="price-box">
+      <div class="price-main" id="price-out">— ₪</div>
+      <div class="price-shipping t"
+           data-fr="+ 50 ₪ livraison en Israël"
+           data-he="+ 50 ₪ משלוח בישראל">+ 50 ₪ livraison en Israël</div>
+      <div class="price-note t"
+           data-fr="Impression à la commande · aucune rupture de stock"
+           data-he="הדפסה לפי הזמנה · אין מחסור במלאי">Impression à la commande · aucune rupture de stock</div>
+    </div>
+
+    <!-- Customer form -->
+    <div id="customer-form" style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+      <label class="form-label t" data-fr="Vos coordonnées de livraison" data-he="פרטי משלוח">Vos coordonnées de livraison</label>
+
+      <input type="text" id="cust-name" class="form-sel t" data-fr="Nom et Prénom" data-he="שם מלא" placeholder="Nom et Prénom" required style="margin-bottom:0.6rem;">
+      <input type="email" id="cust-email" class="form-sel t" data-fr="Email" data-he="אימייל" placeholder="Email" required style="margin-bottom:0.6rem;">
+      <input type="tel" id="cust-phone" class="form-sel t" data-fr="Téléphone" data-he="טלפון" placeholder="Téléphone" required style="margin-bottom:0.6rem;">
+      <input type="text" id="cust-address" class="form-sel t" data-fr="Adresse complète (Ville, rue, n°)" data-he="כתובת מלאה (עיר, רחוב, מספר)" placeholder="Adresse complète (Ville, rue, n°)" required style="margin-bottom:0.6rem;">
+      <textarea id="cust-notes" class="form-sel t" data-fr="Instructions (Digicode, étage...)" data-he="הערות (קוד כניסה, קומה...)" placeholder="Instructions (Digicode, étage...)" style="height: 80px; margin-bottom:0.6rem;"></textarea>
+
+      <p style="font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; text-align: center;" class="t"
+         data-fr="Une confirmation de commande vous sera envoyée par mail après validation du paiement."
+         data-he="אישור הזמנה יישלח אליכם במייל לאחר אישור התשלום.">
+        Une confirmation de commande vous sera envoyée par mail après validation du paiement.
+      </p>
+
+      <button id="validate-details" class="btn-primary" style="width: 100%;">
+        <span class="t" data-fr="Continuer vers le paiement" data-he="המשך לתשלום">Continuer vers le paiement</span>
+      </button>
+    </div>
+
+    <!-- Payment section (hidden until form is validated) -->
+    <div id="payment-section" style="display:none;">
+      <!-- Order -->
+      <div class="order-btns">
+        <button id="pay-bit-trigger" class="btn-wa-order" style="background: #00d1c1; width: 100%;">
+          <span id="btn-bit-text" class="t" data-fr="Payer avec Bit" data-he="תשלום בביט">Payer avec Bit</span>
+        </button>
+
+        <p id="status-msg" style="font-size: 0.75rem; color: var(--gold); text-align: center; display: none; margin-top: 0.5rem;" class="t"
+           data-fr="Transmission de la commande, ouverture de Bit..."
+           data-he="שולח הזמנה, פותח ביט...">
+          Transmission de la commande, ouverture de Bit...
+        </p>
+
+        <button class="btn-bank" id="bank-transfer-trigger" style="margin-top: 0.5rem; width: 100%;">
+          <span>🏦</span>
+          <span class="t" data-fr="Payer par Virement Bancaire" data-he="תשלום בהעברה בנקאית">Payer par Virement Bancaire</span>
+        </button>
+      </div>
+
+      <div id="bank-info-box" style="display:none; margin-top:1.5rem; padding:1.5rem; background:var(--card); border:1px solid var(--gold); border-radius:8px; text-align: left;">
+        <strong class="t" data-fr="Coordonnées Bancaires" data-he="פרטי חשבון בנק">Coordonnées Bancaires</strong>
+        <div style="margin-top:1rem; font-size:0.95rem; line-height:1.8; color:var(--text); font-family: monospace;">
+          <p><b>Banque :</b> Leumi (10)</p>
+          <p><b>Agence :</b> 944</p>
+          <p><b>Compte :</b> 04148337</p>
+          <p><b>Nom :</b> Mordechai Levy</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ── PRICING ── */
+  const CANVAS = {
+    '20×30':88,'25×35':100,'30×30':100,'30×40':125,'30×45':150,
+    '40×40':163,'35×50':188,'50×50':250,'40×60':250,'50×60':275,
+    '50×70':288,'40×80':288,'60×60':288,'60×80':313,'60×90':350,
+    '50×100':388,'70×100':438,'60×120':500,'80×120':575,'90×120':625,
+    '70×140':688,'80×160':775,'100×140':775,'100×150':825,'100×180':963,
+    '100×200':1100
+  };
+  const GLASS = {
+    '20×30':248,'30×45':273,'30×60':388,'40×60':388,'50×70':463,
+    '40×80':488,'60×90':650,'50×100':650,'70×100':763,'60×120':900,
+    '80×120':1150,'70×140':1400,'75×149':1650,'100×150':1875,
+    '80×160':1900,'100×200':3250
+  };
+  const PLEXI = {
+    '20×30':272,'30×45':300,'30×60':426,'40×60':426,'50×70':509,
+    '40×80':536,'60×90':715,'50×100':715,'70×100':839,'60×120':990,
+    '80×120':1265,'70×140':1540,'75×149':1815,'100×150':2063,
+    '80×160':2090,'100×200':3575
+  };
+
+  let curMat = 'canvas';
+  let curPhoto = '';
+  let curPhotoId = '';
+
+  function selectMat(mat) {
+    curMat = mat;
+    ['canvas','glass','plexi'].forEach(m => {
+      document.getElementById('tab-' + m).classList.toggle('active', m === mat);
+    });
+    populateSizes();
+  }
+
+  function populateSizes() {
+    const sel = document.getElementById('size-sel');
+    const prices = curMat === 'canvas' ? CANVAS : curMat === 'plexi' ? PLEXI : GLASS;
+    sel.innerHTML = Object.keys(prices).map(s =>
+      `<option value="${s}" style="direction: ltr !important;">${s} cm</option>`
+    ).join('');
+    updatePrice();
+  }
+
+  let currentPrice = 0;
+
+  function updatePrice() {
+    const size = document.getElementById('size-sel').value;
+    const prices = curMat === 'canvas' ? CANVAS : curMat === 'plexi' ? PLEXI : GLASS;
+    currentPrice = prices[size] || 0;
+    document.getElementById('price-out').textContent = currentPrice ? currentPrice + ' ₪' : '— ₪';
+  }
+
+  function openModal(title, id) {
+    curPhoto = title;
+    curPhotoId = id || title;
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('bank-info-box').style.display = 'none';
+    document.getElementById('customer-form').style.display = 'block';
+    document.getElementById('payment-section').style.display = 'none';
+    // Vider le formulaire
+    ['cust-name','cust-email','cust-phone','cust-address','cust-notes'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    // Reset bouton Bit
+    const btn = document.getElementById('pay-bit-trigger');
+    const btnText = document.getElementById('btn-bit-text');
+    const status = document.getElementById('status-msg');
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btnText.textContent = lang === 'he' ? 'תשלום בביט' : 'Payer avec Bit';
+    status.style.display = 'none';
+    curMat = 'canvas';
+    ['canvas','glass','plexi'].forEach(m =>
+      document.getElementById('tab-' + m).classList.toggle('active', m === 'canvas')
+    );
+    populateSizes();
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleBackdrop(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  /* ── LANGUAGE TOGGLE ── */
+  let lang = 'fr';
+
+  function toggleLang() {
+    lang = lang === 'fr' ? 'he' : 'fr';
+    const html = document.documentElement;
+    html.lang = lang;
+    html.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.getElementById('lang-btn').textContent = lang === 'fr' ? 'עברית' : 'Français';
+    document.body.style.fontFamily = lang === 'he' ? "'Heebo', sans-serif" : "'DM Sans', sans-serif";
+    document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+      el.innerHTML = el.getAttribute('data-' + lang);
+    });
+    // Mise à jour des placeholders bilingues
+    document.querySelectorAll('input.t, textarea.t').forEach(el => {
+      const placeholderText = el.getAttribute('data-' + lang);
+      if (placeholderText) el.placeholder = placeholderText;
+    });
+    // promo banner direction
+    document.querySelector('.promo-inner').style.direction = lang === 'he' ? 'rtl' : 'ltr';
+  }
+
+  /* ── FORMULAIRE LIVRAISON ── */
+  async function sendOrderToLevana(method) {
+    const data = {
+      _subject: `COMMANDE #${curPhotoId} — ${curPhoto} (${method})`,
+      ID_PHOTO: curPhotoId,
+      NOM_PHOTO: curPhoto,
+      client_nom: document.getElementById('cust-name').value,
+      client_email: document.getElementById('cust-email').value,
+      client_tel: document.getElementById('cust-phone').value,
+      client_adresse: document.getElementById('cust-address').value,
+      client_notes: document.getElementById('cust-notes').value,
+      format: document.getElementById('size-sel').value + " cm",
+      support: curMat === 'canvas' ? 'Toile Fine Art' : curMat === 'glass' ? 'Verre Poli' : 'Plexiglas Premium',
+      prix: currentPrice + " ₪",
+      paiement: method,
+      _replyto: document.getElementById('cust-email').value
+    };
+    return fetch("https://script.google.com/macros/s/AKfycbwOncrwwwka1lBDm63pAKEX-t4zUgKkO4B-j7yxMOPm9A_-K5zyInIhQNZZ8vtwTYRj/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+    });
+  }
+
+  document.getElementById('validate-details').addEventListener('click', function() {
+    const isHe = (lang === 'he');
+    const name    = document.getElementById('cust-name').value.trim();
+    const email   = document.getElementById('cust-email').value.trim();
+    const phone   = document.getElementById('cust-phone').value.trim();
+    const address = document.getElementById('cust-address').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (name.length < 2)         { alert(isHe ? "אנא הזינו שם מלא" : "Veuillez entrer votre nom complet."); return; }
+    if (!emailRegex.test(email)) { alert(isHe ? "אנא הזינו כתובת אימייל תקינה" : "Veuillez entrer un email valide."); return; }
+    if (phone.length < 6)        { alert(isHe ? "אנא הזינו מספר טלפון" : "Veuillez entrer un numéro de téléphone."); return; }
+    if (address.length < 5)      { alert(isHe ? "אנא הזינו כתובת מלאה למשלוח" : "Veuillez entrer une adresse complète."); return; }
+
+    document.getElementById('customer-form').style.display = 'none';
+    document.getElementById('payment-section').style.display = 'block';
+  });
+
+  /* ── VIREMENT BANCAIRE ── */
+  document.getElementById('bank-transfer-trigger').addEventListener('click', function() {
+    const btn = this;
+    const status = document.getElementById('status-msg');
+
+    status.style.display = 'block';
+
+    const bankDetails = `
+      <div style="text-align:center; padding:15px; border:1px solid var(--gold); border-radius:var(--r); margin-top:10px; background:#fff;">
+        <strong style="color:var(--gold);">VIREMENT BANCAIRE / העברה בנקאית</strong><br><br>
+        <strong>Banque Mizrahi Tefahot (20)</strong><br>
+        Snif Rishon LeZion (435)<br>
+        Compte : 435203643<br>
+        Nom : Mordechai Levy<br>
+        <hr style="margin:10px 0; opacity:0.2;">
+        <strong>בנק מזרחי טפחות (20)</strong><br>
+        סניף ראשון לציון (435)<br>
+        מספר חשבון: 435203643<br>
+        על שם: מרדכי לוי
+      </div>
+    `;
+
+    status.innerHTML = bankDetails;
+    sendOrderToLevana('Bank Transfer').catch(err => console.error('Formspree:', err));
+  });
+
+  /* ── PAIEMENT BIT ── */
+  document.getElementById('pay-bit-trigger').addEventListener('click', function() {
+    const btn = this;
+    const status = document.getElementById('status-msg');
+
+    status.style.display = 'block';
+    btn.disabled = true;
+
+    // Redirection Bit immédiate (synchrone — contexte clic préservé)
+    window.location.href = `https://www.bitpay.co.il/app/me/E4C95166-CF31-065F-88B5-70AFB9E25D8B5C91`;
+
+    // Envoi commande + coordonnées livraison à Levana
+    sendOrderToLevana('Bit').catch(err => console.error('Formspree:', err));
+
+    // Sécurité : si l'app Bit ne prend pas le relais après 2,5s
+    setTimeout(() => {
+      status.innerHTML = "Si l'application ne s'ouvre pas, veuillez effectuer le règlement Bit au 058-677-0356.";
+      btn.disabled = false;
+    }, 2500);
+  });
+
+
+  const WEEKLY_PHOTOS = [
+    { id: 'RB-001', title: 'Yud Shvat — Hiskashrus' },
+    { id: 'RB-002', title: 'Le Regard du Rabbi' },
+    { id: 'RB-003', title: '770 — Beit Chayenou' },
+    { id: 'RB-004', title: 'La Marche vers la Geoula' },
+    { id: 'RB-005', title: 'Yechidut' },
+    { id: 'RB-006', title: 'Nigoun du Rabbi' },
+    { id: 'RB-007', title: 'La Farbrengen' },
+    { id: 'RB-008', title: 'Ohel — Demande et Prière' },
+    { id: 'RB-009', title: 'Simchat Torah' },
+    { id: 'RB-010', title: 'Le Sourire de Kedoucha' },
+    { id: 'RB-011', title: 'Rabbi — Portrait de Lumière' },
+    { id: 'RB-012', title: 'Dvar Malkhout' }
+  ];
+  const week = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
+  const weekly = WEEKLY_PHOTOS[week % WEEKLY_PHOTOS.length];
+  document.getElementById('promo-photo-text').textContent = `✨ Cette semaine : « ${weekly.title} »`;
+  document.querySelector('.promo-cta').onclick = () => openModal(weekly.title, weekly.id);
+</script>
+</body>
+</html>

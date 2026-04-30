@@ -670,17 +670,24 @@
     .photo-card.featured { grid-column: span 2; }
     .photo-card.hidden { display: none; }
 
+    .card-img-wrap {
+      width: 100%; height: 260px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg2); overflow: hidden;
+    }
+    .photo-card.featured .card-img-wrap { height: 400px; }
     .card-img {
-      width: 100%; aspect-ratio: 4/3; display: block; object-fit: cover;
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto;
+      display: block; object-fit: contain;
       transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
     }
     .photo-card:hover .card-img { transform: scale(1.04); }
-    .photo-card.featured .card-img { aspect-ratio: 16/9; }
     .card-img-placeholder {
-      width: 100%; aspect-ratio: 4/3; display: block;
+      width: 100%; height: 260px; display: block;
       transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .photo-card.featured .card-img-placeholder { aspect-ratio: 16/9; }
+    .photo-card.featured .card-img-placeholder { height: 400px; aspect-ratio: unset; }
     .photo-card:hover .card-img-placeholder { transform: scale(1.04); }
 
     .card-overlay {
@@ -1238,9 +1245,11 @@
     document.getElementById('price-out').textContent = currentPrice ? currentPrice + ' ₪' : '— ₪';
   }
 
+  let curPhotoRef = '';
   function openModal(title, id) {
     curPhoto = title;
     curPhotoId = id || title;
+    curPhotoRef = id || title;
     document.getElementById('modal-title').textContent = title;
     document.getElementById('bank-info-box').style.display = 'none';
     document.getElementById('customer-form').style.display = 'block';
@@ -1304,8 +1313,9 @@
   /* ── FORMULAIRE LIVRAISON ── */
   async function sendOrderToLevana(method) {
     const data = {
-      _subject: `COMMANDE #${curPhotoId} — ${curPhoto} (${method})`,
+      _subject: `COMMANDE #${curPhotoRef} — ${curPhoto} (${method})`,
       ID_PHOTO: curPhotoId,
+      REF_FICHIER: curPhotoRef,
       NOM_PHOTO: curPhoto,
       client_nom: document.getElementById('cust-name').value,
       client_email: document.getElementById('cust-email').value,
@@ -1447,10 +1457,11 @@
     { id:'RB-012', cat:'habad', subcat:'portrait',   titleFr:'Dvar Malkhout',                titleHe:'דבר מלכות',           img:'', featured:false },
 
     // ── BRAHOT ───────────────────────────────────────────
-    { id:'BR-001', cat:'brahot', subcat:'asher-yatzar',   titleFr:'Asher Yatzar — Marbre & Or',  titleHe:'אשר יצר — שיש וזהב',  img:'pictures/brahot/asher_yatsar/2008.jpg', featured:true  },
-    // 👉 Ajoute tes prochaines photos ici, exemple :
-    // { id:'BR-002', cat:'brahot', subcat:'asher-yatzar', titleFr:'Asher Yatzar — Bleu', titleHe:'אשר יצר — כחול', img:'pictures/brahot/asher_yatsar/BR-002.jpg', featured:false },
-    // { id:'BR-003', cat:'brahot', subcat:'birkat-hamazon', titleFr:'Birkat Hamazon', titleHe:'ברכת המזון', img:'pictures/brahot/birkat_hamazon/BR-003.jpg', featured:false },
+    { id:'2008',   cat:'brahot', subcat:'asher-yatzar',   titleFr:'Asher Yatzar — Marbre & Or',  titleHe:'אשר יצר — שיש וזהב',  img:'pictures/brahot/asher_yatsar/2008.jpg', featured:true  },
+    { id:'2904',   cat:'brahot', subcat:'asher-yatzar', titleFr:'Asher Yatzar — Marbre Classique', titleHe:'אשר יצר — שיש קלאסי',  img:'pictures/brahot/asher_yatsar/2904.jpg', featured:false },
+    { id:'2984',   cat:'brahot', subcat:'asher-yatzar', titleFr:'Asher Yatzar — Crème & Or',      titleHe:'אשר יצר — קרם וזהב',   img:'pictures/brahot/asher_yatsar/2984.jpg', featured:false },
+    // 👉 Ajoute tes prochaines photos ici :
+    // { id:'XXXX', cat:'brahot', subcat:'birkat-hamazon', titleFr:'Birkat Hamazon', titleHe:'ברכת המזון', img:'pictures/brahot/birkat_hamazon/XXXX.jpg', featured:false },
 
   ];
 
@@ -1488,8 +1499,8 @@
     const subcatLabel = SUBCATS[p.subcat] ? ((lang==='he') ? SUBCATS[p.subcat].he : SUBCATS[p.subcat].fr) : '';
     const ph = PH_COLORS[idx % PH_COLORS.length];
     const imgHtml = p.img
-      ? `<img class="card-img${p.featured?' featured':''}" src="${p.img}" alt="${p.titleFr}" loading="lazy">`
-      : `<div class="card-img-placeholder${p.featured?' featured':''}" style="background:${ph};${p.featured?'aspect-ratio:16/9;height:300px;':'height:200px;'}"></div>`;
+      ? `<div class="card-img-wrap"><img class="card-img" src="${p.img}" alt="${p.titleFr}" loading="lazy"></div>`
+      : `<div class="card-img-placeholder${p.featured?' featured':''}" style="background:${ph};"></div>`;
     return `
       <div class="photo-card${p.featured?' featured':''}" data-cat="${p.cat}" data-subcat="${p.subcat}"
            onclick="openModal('${p.titleFr.replace(/'/g,"\'")}','${p.id}')">

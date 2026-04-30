@@ -287,89 +287,7 @@
     }
     .gold-line { width: 36px; height: 1px; background: var(--gold); margin: 1.2rem auto 2rem; }
 
-    /* ── GALLERY ── */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-    .photo-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--r);
-      cursor: pointer;
-      background: var(--card);
-      border: 1px solid var(--border);
-      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s;
-    }
-    .photo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(138,92,62,0.13); }
-    .photo-card.featured { grid-column: span 2; }
-    .card-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      display: block;
-      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-    .photo-card:hover .card-img { transform: scale(1.04); }
-    .photo-card.featured .card-img { aspect-ratio: 16/9; }
 
-    /* Portrait placeholders — replace src="" with real photos */
-    .ph-1 { background: radial-gradient(ellipse at 45% 32%, #edd4a0 0%, #c49060 18%, #7a4820 42%, #341508 68%, #0e0704 100%); }
-    .ph-2 { background: radial-gradient(ellipse at 50% 30%, #e0d0a0 0%, #b89058 24%, #6a3e1e 48%, #2c1608 72%, #0a0602 100%); }
-    .ph-3 { background: radial-gradient(ellipse at 42% 36%, #e8d8b8 0%, #c8986a 18%, #7a4e2e 40%, #3c1e0e 65%, #110804 100%); }
-    .ph-4 { background: radial-gradient(ellipse at 48% 34%, #e4c898 0%, #b88050 22%, #6a3818 46%, #301408 70%, #0c0602 100%); }
-    .ph-5 { background: radial-gradient(ellipse at 44% 34%, #ead8b2 0%, #ca9860 20%, #7c4820 42%, #3a1a0a 66%, #100705 100%); }
-    .ph-6 { background: radial-gradient(ellipse at 46% 32%, #e2cca2 0%, #be8c58 22%, #724228 46%, #321808 68%, #0e0704 100%); }
-    .ph-7 { background: radial-gradient(ellipse at 50% 30%, #ddc898 0%, #b07840 22%, #623010 46%, #2a1006 68%, #0c0602 100%); }
-    .ph-8 { background: radial-gradient(ellipse at 44% 34%, #e6d0a8 0%, #c08850 20%, #704020 42%, #301808 66%, #0e0704 100%); }
-    .ph-9 { background: radial-gradient(ellipse at 48% 32%, #e8d4b0 0%, #c49060 18%, #785030 40%, #382010 65%, #100806 100%); }
-    .ph-10 { background: radial-gradient(ellipse at 42% 36%, #dccaa0 0%, #b48048 22%, #643818 46%, #2c1408 70%, #0a0602 100%); }
-    .ph-11 { background: radial-gradient(ellipse at 46% 30%, #e4d0a6 0%, #be8a56 20%, #6e4026 44%, #301808 68%, #0e0704 100%); }
-    .ph-12 { background: radial-gradient(ellipse at 50% 34%, #e0cca0 0%, #b88450 22%, #684020 46%, #2e1608 70%, #0c0602 100%); }
-
-    .card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(250,248,244,0.96) 0%, rgba(250,248,244,0.3) 55%, transparent 100%);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 1.25rem;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .photo-card:hover .card-overlay { opacity: 1; }
-    .overlay-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      color: var(--text);
-      margin-bottom: 0.6rem;
-    }
-    .btn-configure {
-      display: inline-block;
-      padding: 0.55rem 1.25rem;
-      background: var(--gold);
-      color: #1c1a18;
-      font-size: 0.73rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-      align-self: flex-start;
-      transition: background 0.2s;
-      font-family: inherit;
-    }
-    .btn-configure:hover { background: var(--gold2); }
-    .card-footer {
-      padding: 0.85rem 1.1rem;
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .card-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.9rem;
-      color: var(--text);
-    }
-    .card-from { font-size: 0.73rem; color: var(--gold); }
 
     /* ── ROOM PREVIEW ── */
     .room-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -704,6 +622,109 @@
       .instit-wrap { grid-template-columns: 1fr; }
       .cadeau-card { padding: 2rem 1.5rem; }
     }
+  
+    /* ── CATEGORY + SUBCATEGORY FILTER ── */
+    .filter-bar { margin-bottom: 3rem; }
+    .cat-tabs {
+      display: flex; justify-content: center; gap: 0.5rem;
+      flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .cat-tab {
+      padding: 0.55rem 1.8rem;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; border: 1px solid var(--border);
+      border-radius: 24px; background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.25s; font-family: inherit;
+    }
+    .cat-tab:hover { border-color: var(--gold); color: var(--gold); }
+    .cat-tab.active { background: var(--gold); border-color: var(--gold); color: #1c1a18; }
+
+    .subcat-tabs {
+      display: flex; justify-content: center; gap: 0.4rem;
+      flex-wrap: wrap; min-height: 2rem;
+      transition: opacity 0.3s;
+    }
+    .subcat-tab {
+      padding: 0.3rem 1rem;
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border); border-radius: 20px;
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.2s; font-family: inherit;
+    }
+    .subcat-tab:hover { border-color: var(--gold); color: var(--gold); }
+    .subcat-tab.active { background: rgba(138,92,62,0.12); border-color: var(--gold); color: var(--gold); }
+
+    .gallery-count {
+      text-align: center; font-size: 0.75rem; color: var(--muted);
+      letter-spacing: 0.1em; margin-bottom: 1.5rem;
+    }
+
+    /* ── GALLERY GRID ── */
+    .gallery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .photo-card {
+      position: relative; overflow: hidden; border-radius: var(--r);
+      cursor: pointer; background: var(--card); border: 1px solid var(--border);
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s, opacity 0.3s;
+    }
+    .photo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(138,92,62,0.13); }
+    .photo-card.featured { grid-column: span 2; }
+    .photo-card.hidden { display: none; }
+
+    .card-img {
+      width: 100%; aspect-ratio: 4/3; display: block; object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .photo-card:hover .card-img { transform: scale(1.04); }
+    .photo-card.featured .card-img { aspect-ratio: 16/9; }
+    .card-img-placeholder {
+      width: 100%; aspect-ratio: 4/3; display: block;
+      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .photo-card.featured .card-img-placeholder { aspect-ratio: 16/9; }
+    .photo-card:hover .card-img-placeholder { transform: scale(1.04); }
+
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(250,248,244,0.96) 0%, rgba(250,248,244,0.3) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.25rem; opacity: 0; transition: opacity 0.3s;
+    }
+    .photo-card:hover .card-overlay { opacity: 1; }
+    .overlay-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text); margin-bottom: 0.6rem; }
+    .btn-configure {
+      display: inline-block; padding: 0.55rem 1.25rem; background: var(--gold);
+      color: #1c1a18; font-size: 0.73rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; border: none; border-radius: 2px; cursor: pointer;
+      align-self: flex-start; transition: background 0.2s; font-family: inherit;
+    }
+    .btn-configure:hover { background: var(--gold2); }
+    .card-footer {
+      padding: 0.85rem 1.1rem; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .card-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--text); }
+    .card-subcat { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.15rem; }
+    .card-from { font-size: 0.73rem; color: var(--gold); }
+
+    /* ── LOAD MORE ── */
+    .load-more-wrap { text-align: center; margin-top: 3rem; }
+    .btn-load-more {
+      padding: 0.8rem 2.5rem; background: transparent; color: var(--gold);
+      border: 1px solid var(--gold); border-radius: 2px; font-size: 0.78rem;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+      transition: all 0.25s; font-family: inherit;
+    }
+    .btn-load-more:hover { background: var(--gold); color: #1c1a18; }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .photo-card.featured { grid-column: span 2; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .photo-card.featured { grid-column: span 1; }
+    }
+
   </style>
 </head>
 <body>
@@ -768,9 +789,9 @@
   <div class="container">
     <span class="section-label t" data-fr="La Collection" data-he="האוסף">La Collection</span>
     <h2 class="section-title">
-      <em class="t" 
-            data-fr="Plus qu'un portrait : la présence du Rabbi dans votre foyer" 
-            data-he="יותר מדיוקן: נוכחות הרבי בביתכם">
+      <em class="t"
+          data-fr="Plus qu'un portrait : la présence du Rabbi dans votre foyer"
+          data-he="יותר מדיוקן: נוכחות הרבי בביתכם">
         Plus qu'un portrait : la présence du Rabbi dans votre foyer
       </em>
     </h2>
@@ -781,175 +802,32 @@
       Des œuvres conçues avec les plus grandes exigences d'édition, alliant précision et finition raffinée pour sublimer votre intérieur.
     </p>
 
-    <div class="gallery-grid">
-
-      <!-- FEATURED -->
-      <div class="photo-card featured" onclick="openModal('Yud Shvat — Hiskashrus', 'RB-001')">
-        <!-- REMPLACER src par la vraie URL de photo | REPLACE src with real photo URL -->
-        <div class="card-img ph-1" style="height:300px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Yud Shvat — Hiskashrus" data-he="יו״ד שבט — התקשרות">Yud Shvat — Hiskashrus</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Yud Shvat — Hiskashrus" data-he="יו״ד שבט — התקשרות">Yud Shvat — Hiskashrus</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
+    <!-- FILTRES -->
+    <div class="filter-bar">
+      <div class="cat-tabs">
+        <button class="cat-tab active" onclick="setCat('all',this)" data-fr="Tout" data-he="הכל">Tout</button>
+        <button class="cat-tab" onclick="setCat('habad',this)" data-fr="Habad" data-he="חב&quot;ד">Habad</button>
+        <button class="cat-tab" onclick="setCat('brahot',this)" data-fr="Brahot" data-he="ברכות">Brahot</button>
       </div>
-
-      <!-- CARD 2 -->
-      <div class="photo-card" onclick="openModal('Le Regard du Rabbi', 'RB-002')">
-        <div class="card-img ph-2" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Le Regard du Rabbi" data-he="מבטו של הרבי">Le Regard du Rabbi</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Le Regard du Rabbi" data-he="מבטו של הרבי">Le Regard du Rabbi</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="photo-card" onclick="openModal('770 — Beit Chayenou', 'RB-003')">
-        <div class="card-img ph-3" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="770 — Beit Chayenou" data-he="770 — בית חיינו">770 — Beit Chayenou</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="770 — Beit Chayenou" data-he="770 — בית חיינו">770 — Beit Chayenou</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 4 -->
-      <div class="photo-card" onclick="openModal('La Marche vers la Geoula', 'RB-004')">
-        <div class="card-img ph-4" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="La Marche vers la Geoula" data-he="הצעדה לגאולה">La Marche vers la Geoula</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="La Marche vers la Geoula" data-he="הצעדה לגאולה">La Marche vers la Geoula</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 5 -->
-      <div class="photo-card" onclick="openModal('Yechidut', 'RB-005')">
-        <div class="card-img ph-5" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Yechidut" data-he="יחידות">Yechidut</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Yechidut" data-he="יחידות">Yechidut</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 6 -->
-      <div class="photo-card" onclick="openModal('Nigoun du Rabbi', 'RB-006')">
-        <div class="card-img ph-6" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Nigoun du Rabbi" data-he="ניגון הרבי">Nigoun du Rabbi</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Nigoun du Rabbi" data-he="ניגון הרבי">Nigoun du Rabbi</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 7 — featured -->
-      <div class="photo-card featured" onclick="openModal('La Farbrengen', 'RB-007')">
-        <div class="card-img ph-7" style="height:300px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="La Farbrengen" data-he="הפארברענגען">La Farbrengen</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="La Farbrengen" data-he="הפארברענגען">La Farbrengen</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 8 -->
-      <div class="photo-card" onclick="openModal('Ohel — Demande et Prière', 'RB-008')">
-        <div class="card-img ph-8" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Ohel — Demande et Prière" data-he="אוהל — בקשה ותפילה">Ohel — Demande et Prière</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Ohel — Demande et Prière" data-he="אוהל — בקשה ותפילה">Ohel — Demande et Prière</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 9 -->
-      <div class="photo-card" onclick="openModal('Simchat Torah', 'RB-009')">
-        <div class="card-img ph-9" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Simchat Torah" data-he="שמחת תורה">Simchat Torah</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Simchat Torah" data-he="שמחת תורה">Simchat Torah</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 10 -->
-      <div class="photo-card" onclick="openModal('Le Sourire de Kedoucha', 'RB-010')">
-        <div class="card-img ph-10" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Le Sourire de Kedoucha" data-he="חיוך הקדושה">Le Sourire de Kedoucha</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Le Sourire de Kedoucha" data-he="חיוך הקדושה">Le Sourire de Kedoucha</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 11 -->
-      <div class="photo-card" onclick="openModal('Rabbi — Portrait de Lumière', 'RB-011')">
-        <div class="card-img ph-11" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Rabbi — Portrait de Lumière" data-he="רבי — דיוקן של אור">Rabbi — Portrait de Lumière</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Rabbi — Portrait de Lumière" data-he="רבי — דיוקן של אור">Rabbi — Portrait de Lumière</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
-      <!-- CARD 12 -->
-      <div class="photo-card" onclick="openModal('Dvar Malkhout', 'RB-012')">
-        <div class="card-img ph-12" style="height:200px;"></div>
-        <div class="card-overlay">
-          <div class="overlay-title t" data-fr="Dvar Malkhout" data-he="דבר מלכות">Dvar Malkhout</div>
-          <button class="btn-configure t" data-fr="Choisir format &amp; matière" data-he="בחר פורמט וחומר">Choisir format &amp; matière</button>
-        </div>
-        <div class="card-footer">
-          <div class="card-name t" data-fr="Dvar Malkhout" data-he="דבר מלכות">Dvar Malkhout</div>
-          <div class="card-from t" data-fr="Dès 69 ₪" data-he="החל מ-69 ₪">Dès 69 ₪</div>
-        </div>
-      </div>
-
+      <div class="subcat-tabs" id="subcat-bar"></div>
     </div>
 
-    <!-- Custom order -->
+    <div class="gallery-count" id="gallery-count"></div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+
+    <div class="load-more-wrap" id="load-more-wrap" style="display:none;">
+      <button class="btn-load-more t" onclick="loadMore()"
+              data-fr="Voir plus de photos ↓" data-he="עוד תמונות ↓">Voir plus de photos ↓</button>
+    </div>
+
+    <!-- Commande sur-mesure -->
     <div style="text-align:center; margin-top:4rem; padding: 2.5rem 2rem; border: 1px solid var(--border); border-radius: var(--r); background: rgba(138,92,62,0.03);">
       <p style="color:var(--muted); font-size:0.95rem; margin-bottom:1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;" class="t"
-         data-fr="Vous recherchez un portrait spécifique, un autre Tsaddik ou un format monumental ? Nous réalisons vos projets d'édition sur-mesure pour s'adapter parfaitement à votre intérieur."
-         data-he="מחפשים דיוקן ספציפי, צדיק אחר או פורמט ענק? אנו מבצעים פרויקטים של הדפסה בהתאמה אישית כדי להתאים בצורה מושלמת לעיצוב הבית שלכם.">
-        Vous recherchez un portrait spécifique, un autre Tsaddik ou un format monumental ? Nous réalisons vos projets d'édition sur-mesure pour s'adapter parfaitement à votre intérieur.
+         data-fr="Vous recherchez un portrait spécifique, un autre Tsaddik ou un format monumental ? Nous réalisons vos projets d'édition sur-mesure."
+         data-he="מחפשים דיוקן ספציפי, צדיק אחר או פורמט ענק? אנו מבצעים פרויקטים בהתאמה אישית.">
+        Vous recherchez un portrait spécifique, un autre Tsaddik ou un format monumental ? Nous réalisons vos projets d'édition sur-mesure.
       </p>
-      <a href="https://wa.me/972586770356?text=Bonjour%2C+je+souhaiterais+discuter+d%27un+projet+de+commande+personnalis%C3%A9e+pour+un+format+ou+un+mod%C3%A8le+sp%C3%A9cifique."
+      <a href="https://wa.me/972586770356?text=Bonjour%2C+je+souhaiterais+un+projet+de+commande+personnalis%C3%A9e."
          class="btn-primary" target="_blank" rel="noopener" style="display:inline-block;">
         <span class="t" data-fr="Demande d'édition sur-mesure" data-he="בקשה להדפסה בהתאמה אישית">Demande d'édition sur-mesure</span>
       </a>
@@ -1419,6 +1297,8 @@
     });
     // promo banner direction
     document.querySelector('.promo-inner').style.direction = lang === 'he' ? 'rtl' : 'ltr';
+    renderSubcats();
+    renderGallery();
   }
 
   /* ── FORMULAIRE LIVRAISON ── */
@@ -1510,6 +1390,177 @@
     }, 2500);
   });
 
+
+
+  /* ════════════════════════════════════════════════════════
+     GALLERY DATA — Pour ajouter une photo :
+     1. Ajoute une ligne dans le tableau ci-dessous
+     2. Place le fichier dans le bon dossier sur GitHub
+     Format : { id, cat, subcat, titleFr, titleHe, img, featured }
+     ════════════════════════════════════════════════════════ */
+
+  // SOUS-CATÉGORIES (labels bilingues)
+  const SUBCATS = {
+    // Habad
+    'portrait'    : { fr: 'Portraits',      he: 'דיוקנאות' },
+    'farbrengen'  : { fr: 'Farbrengen',     he: 'פארברענגען' },
+    'ohel'        : { fr: 'Ohel',           he: 'אוהל' },
+    'yom-tov'     : { fr: 'Yom Tov',        he: 'ימים טובים' },
+    '770'         : { fr: '770',            he: '770' },
+    // Brahot
+    'asher-yatzar': { fr: 'Asher Yatzar',   he: 'אשר יצר' },
+    'birkat-hamazon': { fr: 'Birkat Hamazon', he: 'ברכת המזון' },
+    'shabbat'     : { fr: 'Chabbat',        he: 'שבת' },
+    'tefilot'     : { fr: 'Tefilot',        he: 'תפילות' },
+    'moadim'      : { fr: 'Moadim',         he: 'מועדים' },
+  };
+
+  /* ── DONNÉES GALERIE ──────────────────────────────────────
+     👉 C'EST ICI QUE TU AJOUTES TES PHOTOS
+     
+     Chaque ligne = une photo :
+     id       : identifiant unique (ex: 'RB-001', 'BR-002')
+     cat      : 'habad' ou 'brahot'
+     subcat   : voir SUBCATS ci-dessus
+     titleFr  : titre en français
+     titleHe  : titre en hébreu
+     img      : chemin relatif depuis la racine du repo
+                ex: 'pictures/brahot/asher_yatsar/2008.jpg'
+                    'pictures/habad/portrait/RB-001.jpg'
+                    '' = placeholder coloré (tant que photo pas encore ajoutée)
+     featured : true = carte large (span 2 colonnes), false = carte normale
+  ─────────────────────────────────────────────────────────── */
+  const GALLERY_DATA = [
+
+    // ── HABAD ────────────────────────────────────────────
+    { id:'RB-001', cat:'habad', subcat:'portrait',   titleFr:'Yud Shvat — Hiskashrus',      titleHe:'יו״ד שבט — התקשרות',  img:'', featured:true  },
+    { id:'RB-002', cat:'habad', subcat:'portrait',   titleFr:'Le Regard du Rabbi',           titleHe:'מבטו של הרבי',        img:'', featured:false },
+    { id:'RB-003', cat:'habad', subcat:'770',        titleFr:'770 — Beit Chayenou',          titleHe:'770 — בית חיינו',     img:'', featured:false },
+    { id:'RB-004', cat:'habad', subcat:'portrait',   titleFr:'La Marche vers la Geoula',     titleHe:'הצעדה לגאולה',        img:'', featured:false },
+    { id:'RB-005', cat:'habad', subcat:'portrait',   titleFr:'Yechidut',                     titleHe:'יחידות',              img:'', featured:false },
+    { id:'RB-006', cat:'habad', subcat:'farbrengen', titleFr:'Nigoun du Rabbi',              titleHe:'ניגון הרבי',          img:'', featured:false },
+    { id:'RB-007', cat:'habad', subcat:'farbrengen', titleFr:'La Farbrengen',                titleHe:'הפארברענגען',         img:'', featured:true  },
+    { id:'RB-008', cat:'habad', subcat:'ohel',       titleFr:'Ohel — Demande et Prière',     titleHe:'אוהל — בקשה ותפילה', img:'', featured:false },
+    { id:'RB-009', cat:'habad', subcat:'yom-tov',    titleFr:'Simchat Torah',                titleHe:'שמחת תורה',           img:'', featured:false },
+    { id:'RB-010', cat:'habad', subcat:'portrait',   titleFr:'Le Sourire de Kedoucha',       titleHe:'חיוך הקדושה',         img:'', featured:false },
+    { id:'RB-011', cat:'habad', subcat:'portrait',   titleFr:'Rabbi — Portrait de Lumière',  titleHe:'רבי — דיוקן של אור',  img:'', featured:false },
+    { id:'RB-012', cat:'habad', subcat:'portrait',   titleFr:'Dvar Malkhout',                titleHe:'דבר מלכות',           img:'', featured:false },
+
+    // ── BRAHOT ───────────────────────────────────────────
+    { id:'BR-001', cat:'brahot', subcat:'asher-yatzar',   titleFr:'Asher Yatzar — Marbre & Or',  titleHe:'אשר יצר — שיש וזהב',  img:'pictures/brahot/asher_yatsar/2008.jpg', featured:true  },
+    // 👉 Ajoute tes prochaines photos ici, exemple :
+    // { id:'BR-002', cat:'brahot', subcat:'asher-yatzar', titleFr:'Asher Yatzar — Bleu', titleHe:'אשר יצר — כחול', img:'pictures/brahot/asher_yatsar/BR-002.jpg', featured:false },
+    // { id:'BR-003', cat:'brahot', subcat:'birkat-hamazon', titleFr:'Birkat Hamazon', titleHe:'ברכת המזון', img:'pictures/brahot/birkat_hamazon/BR-003.jpg', featured:false },
+
+  ];
+
+  /* ── COULEURS PLACEHOLDER (quand img:'') ── */
+  const PH_COLORS = [
+    'radial-gradient(ellipse at 45% 32%, #edd4a0 0%, #c49060 18%, #7a4820 42%, #341508 68%, #0e0704 100%)',
+    'radial-gradient(ellipse at 50% 30%, #e0d0a0 0%, #b89058 24%, #6a3e1e 48%, #2c1608 72%, #0a0602 100%)',
+    'radial-gradient(ellipse at 42% 36%, #e8d8b8 0%, #c8986a 18%, #7a4e2e 40%, #3c1e0e 65%, #110804 100%)',
+    'radial-gradient(ellipse at 48% 34%, #e4c898 0%, #b88050 22%, #6a3818 46%, #301408 70%, #0c0602 100%)',
+    'radial-gradient(ellipse at 44% 34%, #ead8b2 0%, #ca9860 20%, #7c4820 42%, #3a1a0a 66%, #100705 100%)',
+    'radial-gradient(ellipse at 46% 32%, #e2cca2 0%, #be8c58 22%, #724228 46%, #321808 68%, #0e0704 100%)',
+    'radial-gradient(ellipse at 50% 30%, #ddc898 0%, #b07840 22%, #623010 46%, #2a1006 68%, #0c0602 100%)',
+    'radial-gradient(ellipse at 44% 34%, #e6d0a8 0%, #c08850 20%, #704020 42%, #301808 66%, #0e0704 100%)',
+  ];
+
+  /* ── ÉTAT FILTRE ── */
+  let activeCat    = 'all';
+  let activeSubcat = 'all';
+  let visibleCount = 12;
+  const PAGE_SIZE  = 12;
+
+  function filteredPhotos() {
+    return GALLERY_DATA.filter(p => {
+      if (activeCat !== 'all' && p.cat !== activeCat) return false;
+      if (activeSubcat !== 'all' && p.subcat !== activeSubcat) return false;
+      return true;
+    });
+  }
+
+  /* ── RENDU D'UNE CARTE ── */
+  function renderCard(p, idx) {
+    const title = (lang === 'he') ? p.titleHe : p.titleFr;
+    const btnTxt = (lang === 'he') ? 'בחר פורמט וחומר' : 'Choisir format &amp; matière';
+    const fromTxt = (lang === 'he') ? 'החל מ-69 ₪' : 'Dès 69 ₪';
+    const subcatLabel = SUBCATS[p.subcat] ? ((lang==='he') ? SUBCATS[p.subcat].he : SUBCATS[p.subcat].fr) : '';
+    const ph = PH_COLORS[idx % PH_COLORS.length];
+    const imgHtml = p.img
+      ? `<img class="card-img${p.featured?' featured':''}" src="${p.img}" alt="${p.titleFr}" loading="lazy">`
+      : `<div class="card-img-placeholder${p.featured?' featured':''}" style="background:${ph};${p.featured?'aspect-ratio:16/9;height:300px;':'height:200px;'}"></div>`;
+    return `
+      <div class="photo-card${p.featured?' featured':''}" data-cat="${p.cat}" data-subcat="${p.subcat}"
+           onclick="openModal('${p.titleFr.replace(/'/g,"\'")}','${p.id}')">
+        ${imgHtml}
+        <div class="card-overlay">
+          <div class="overlay-title">${title}</div>
+          <button class="btn-configure">${btnTxt}</button>
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="card-name">${title}</div>
+            ${subcatLabel ? `<div class="card-subcat">${subcatLabel}</div>` : ''}
+          </div>
+          <div class="card-from">${fromTxt}</div>
+        </div>
+      </div>`;
+  }
+
+  /* ── RENDU GALERIE ── */
+  function renderGallery() {
+    const photos = filteredPhotos();
+    const grid   = document.getElementById('gallery-grid');
+    const count  = document.getElementById('gallery-count');
+    const lmWrap = document.getElementById('load-more-wrap');
+
+    const slice = photos.slice(0, visibleCount);
+    grid.innerHTML = slice.map((p, i) => renderCard(p, i)).join('');
+
+    const total = photos.length;
+    count.textContent = (lang === 'he')
+      ? `${total} תמונות`
+      : `${total} œuvre${total>1?'s':''}`;
+
+    lmWrap.style.display = (visibleCount < total) ? 'block' : 'none';
+  }
+
+  /* ── SOUS-CATÉGORIES ── */
+  function renderSubcats() {
+    const bar = document.getElementById('subcat-bar');
+    if (activeCat === 'all') { bar.innerHTML = ''; return; }
+    const available = [...new Set(GALLERY_DATA.filter(p => p.cat === activeCat).map(p => p.subcat))];
+    const allLabel  = (lang === 'he') ? 'הכל' : 'Tous';
+    bar.innerHTML = `<button class="subcat-tab${activeSubcat==='all'?' active':''}" onclick="setSubcat('all',this)">${allLabel}</button>`
+      + available.map(sc => {
+          const lbl = SUBCATS[sc] ? ((lang==='he') ? SUBCATS[sc].he : SUBCATS[sc].fr) : sc;
+          return `<button class="subcat-tab${activeSubcat===sc?' active':''}" onclick="setSubcat('${sc}',this)">${lbl}</button>`;
+        }).join('');
+  }
+
+  /* ── FILTRES ── */
+  function setCat(cat, btn) {
+    activeCat = cat; activeSubcat = 'all'; visibleCount = PAGE_SIZE;
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    renderSubcats();
+    renderGallery();
+  }
+  function setSubcat(sc, btn) {
+    activeSubcat = sc; visibleCount = PAGE_SIZE;
+    document.querySelectorAll('.subcat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    renderGallery();
+  }
+  function loadMore() {
+    visibleCount += PAGE_SIZE;
+    renderGallery();
+  }
+
+  /* ── INIT ── */
+  renderSubcats();
+  renderGallery();
 
   const WEEKLY_PHOTOS = [
     { id: 'RB-001', title: 'Yud Shvat — Hiskashrus' },
